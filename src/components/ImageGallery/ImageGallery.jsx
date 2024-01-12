@@ -26,24 +26,18 @@ const ImageGallery = ({ loadMore, query, page }) => {
         if (prevQueryRef.current !== query) {
           setHits([]);
         }
-
-        const response = await fetch(`https://pixabay.com/api/?q=${query}&page=${page}&key=40934415-dfd7c79ea7303db44ba7dd17c&image_type=photo&orientation=horizontal&per_page=12`);
-
+        const response = await fetch(`https://pixabay.com/api/?q=${query}&page=${page}&key=40934415-dfd7c79ea7303db44ba7dd17c&image_type=photo&orientation=horizontal&per_page=12`)
         if (!response.ok) {
           throw new Error(`Oops... Something went wrong`)
         }
-
         const hitsData = await response.json()
-
         if (hitsData.hits.length === 0) {
           throw new Error(`No images found for query: ${query}`)
         }
-
         setHits(existingHits => [...existingHits, ...hitsData.hits])
       } catch (error) {setError(error)} 
       finally {setLoading(false)}
     }
-
     fetchSearch();
     prevQueryRef.current = query
   }, [query, page])
@@ -51,6 +45,7 @@ const ImageGallery = ({ loadMore, query, page }) => {
   const toggleModal = (largeImageURL) => {
     setShowModal(prevShowModal => !prevShowModal)
     setLargeImageURL(largeImageURL)
+    console.log("test")
   };
 
   return (
